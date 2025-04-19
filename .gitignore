@@ -13,7 +13,7 @@ local.properties
 .settings
 .classpath
 .project
-..gitattributes
+.gitattributes
 bin/org/serratec/project
 
 # External tool builders
