@@ -24,11 +24,22 @@ public class Funcionario extends Pessoa {
 	}
 
 
+	public Double getSalarioBruto() {
+		return salarioBruto;
+	}
+
+
+	public void setSalarioBruto(Double salarioBruto) {
+		this.salarioBruto = salarioBruto;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Funcionario [salarioBruto=" + salarioBruto + ", descontoInss=" + descontoInss + ", descontoIr="
 				+ descontoIr + "]";
 	}
+	
 	
 	
 	
