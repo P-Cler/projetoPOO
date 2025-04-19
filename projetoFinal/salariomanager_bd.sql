@@ -1,3 +1,5 @@
+CREATE DATABASE salariomanager_db;
+
 CREATE TABLE funcionario (
     id_funcionario SERIAL PRIMARY KEY,
     nome TEXT NOT NULL,
