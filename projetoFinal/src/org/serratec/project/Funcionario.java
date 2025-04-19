@@ -12,6 +12,16 @@ public class Funcionario extends Pessoa {
 		this.descontoInss = descontoInss;
 		this.descontoIr = descontoIr;
 	}
+
+
+	public Double getDescontoIr() {
+		return descontoIr;
+	}
+
+
+	public void setDescontoIr(Double descontoIr) {
+		this.descontoIr = descontoIr;
+	}
 	
 	
 	
