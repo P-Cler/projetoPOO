@@ -22,7 +22,16 @@ public class Funcionario extends Pessoa {
 	public void setDescontoIr(Double descontoIr) {
 		this.descontoIr = descontoIr;
 	}
-	
+
+
+	public Double getSalarioBruto() {
+		return salarioBruto;
+	}
+
+
+	public void setSalarioBruto(Double salarioBruto) {
+		this.salarioBruto = salarioBruto;
+	}
 	
 	
 }
