@@ -9,15 +9,15 @@ public class ConnectionFac {
     private String url = "jdbc:postgresql://localhost:5432/salariomanager_db";
 
     public Connection getConnection() {
-        String username;
-        String password;
+        String username = "postgres";
+        String password = "123456";
         Connection connection = null;
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Usuário:");
-        username = sc.nextLine();
-        System.out.println("Senha:");
-        password = sc.nextLine();
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Usuário:");
+//        username = sc.nextLine();
+//        System.out.println("Senha:");
+//        password = sc.nextLine();
         
         try {
             System.out.println("Fazendo conexão...");

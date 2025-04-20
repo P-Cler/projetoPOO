@@ -37,6 +37,7 @@ public final class Funcionario extends Pessoa {
 	}
 
 	public void setSalario_bruto(Double salario_bruto) {
+		
 		this.salario_bruto = salario_bruto;
 	}
 
