@@ -18,8 +18,8 @@ public class FuncionarioDAO implements CrudDAO<Funcionario> {
 	List<Funcionario> funcionarios = new ArrayList<>();
 	final String  table = "funcionario";
 	
-	public FuncionarioDAO() {
-		this.connection = new ConnectionFac().getConnection();
+	public FuncionarioDAO(Connection connection) {
+		this.connection = connection;
 	}
 
 	@Override
