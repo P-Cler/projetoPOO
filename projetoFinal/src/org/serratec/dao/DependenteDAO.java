@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.serratec.entidade.Dependente;
-import org.serratec.entidade.Parentesco;
+import org.serratec.enums.Parentesco;
 
 public class DependenteDAO implements CrudDAO<Dependente> {
 	Connection connection;

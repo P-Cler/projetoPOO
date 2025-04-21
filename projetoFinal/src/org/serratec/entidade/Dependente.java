@@ -1,6 +1,7 @@
 package org.serratec.entidade;
 
 import java.time.LocalDate;
+import org.serratec.enums.Parentesco;
 
 public final class Dependente extends Pessoa {
 	private Integer id_dependente;
