@@ -6,11 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.serratec.dbconnection.ConnectionFac;
 import org.serratec.entidade.Funcionario;
 
 public class FuncionarioDAO implements CrudDAO<Funcionario> {
