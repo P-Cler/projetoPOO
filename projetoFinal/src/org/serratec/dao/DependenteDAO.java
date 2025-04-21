@@ -74,7 +74,7 @@ public class DependenteDAO implements CrudDAO<Dependente> {
 		String sql = "DELETE FROM " + this.table + " WHERE id_dependente = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		try {
-			stmt.setInt(1,id);
+			stmt.setInt(1, id);
 			stmt.execute();
 			dependentes.removeIf(d -> d.getId_dependente() == id);
 			System.out.println("Dependente deletado com sucesso!");
@@ -85,7 +85,7 @@ public class DependenteDAO implements CrudDAO<Dependente> {
 	}
 
 	@Override
-	public void getAll()  {
+	public void getAll() {
 		String sql = "SELECT * FROM " + table;
 		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 			while (rs.next()) {
@@ -95,7 +95,7 @@ public class DependenteDAO implements CrudDAO<Dependente> {
 			}
 		} catch (SQLException e) {
 			System.err.println("Erro ao carregar lista de funcionários: " + e.getMessage());
-		
+
 		}
 	}
 

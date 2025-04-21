@@ -10,9 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.serratec.entidade.Dependente;
 import org.serratec.entidade.FolhaPagamento;
-import org.serratec.entidade.Parentesco;
 
 public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 	Connection connection;
@@ -30,8 +28,6 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 				+ " (id_funcionario, data_pagamento, desconto_inss, desconto_ir, salario_liquido) VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			//Integer id_funcionario, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
-			//Double salarioLiquido
 			stmt.setInt(1, folhaPagamento.getIdFuncionario());
 			stmt.setDate(2, Date.valueOf(folhaPagamento.getDataPagamento()));
 			stmt.setDouble(3, folhaPagamento.getDescontoINSS());
@@ -75,10 +71,10 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 
 	@Override
 	public void excluir(Integer id) throws SQLException {
-		String sql = "DELETE FROM " + this.table + " WHERE id_dependente = ?";
+		String sql = "DELETE FROM " + this.table + " WHERE id = ?";
 		PreparedStatement stmt = connection.prepareStatement(sql);
 		try {
-			stmt.setInt(1,id);
+			stmt.setInt(1, id);
 			stmt.execute();
 			folhaPagamentos.removeIf(tp -> tp.getCodigo() == id);
 			System.out.println("Pagamento deletado com sucesso!");
@@ -89,16 +85,15 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 	}
 
 	@Override
-	public void getAll()  {
+	public void getAll() {
 		String sql = "SELECT * FROM " + table;
 		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 			while (rs.next()) {
-				folhaPagamentos.add(new FolhaPagamento(rs.getInt("id"), rs.getString("data_pagamento"), rs.getString("cpf"),
-						rs.getDate("data_nascimento").toLocalDate(), Parentesco.valueOf(rs.getString("parentesco")),
-						rs.getInt("id_funcionario")));
+				folhaPagamentos.add(new FolhaPagamento(rs.getInt("id"), LocalDate.parse(rs.getString("data_pagamento")),
+						rs.getDouble("desconto_inss"), rs.getDouble("desconto_ir"), rs.getDouble("salario_liquido")));
 			}
 		} catch (SQLException e) {
-			System.err.println("Erro ao carregar lista de funcionários: " + e.getMessage());		
+			System.err.println("Erro ao carregar lista de pagamentos: " + e.getMessage());
 		}
 	}
 
@@ -109,21 +104,20 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 		stmt.setInt(1, id);
 
 		ResultSet rs = stmt.executeQuery();
-
-		Dependente dependente = null;
+		FolhaPagamento folhaPagamento = null;
 		if (rs.next()) {
-			folhaPagamento = new FolhaPagamento(rs.getInt("id_dependente"), rs.getString("nome"), rs.getString("cpf"),
-					rs.getDate("data_nascimento").toLocalDate(),
-					Parentesco.valueOf(rs.getString("parentesco").toUpperCase()), rs.getInt("id_funcionario"));
+			folhaPagamento = new FolhaPagamento(rs.getInt("id"), LocalDate.parse(rs.getString("data_pagamento")),
+					rs.getDouble("desconto_inss"), rs.getDouble("desconto_ir"), rs.getDouble("salario_liquido"));
+		} else {
+			System.out.println("Pagamento não encontrado.");
 		}
 
 		return folhaPagamento;
 	}
 
 	public void mostrarDependentes() {
-		for (Dependente dependente : dependentes) {
-			System.out.println(dependente);
+		for (FolhaPagamento folhaDePagamento : folhaPagamentos) {
+			System.out.println(folhaDePagamento);
 		}
 	}
-}
 }
