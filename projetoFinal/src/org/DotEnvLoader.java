@@ -28,5 +28,4 @@ public class DotEnvLoader {
 
         return envVars;
     }
-    
 }
