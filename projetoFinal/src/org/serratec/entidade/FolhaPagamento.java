@@ -3,27 +3,50 @@ package org.serratec.entidade;
 import java.time.LocalDate;
 
 public class FolhaPagamento {
-	private int codigo;
-	private Funcionario funcionario;
+	private Integer codigo;
+	private Integer idFuncionario;
 	private LocalDate dataPagamento;
-	private double descontoINSS;
-	private double descontoIR;
-	private double salarioLiquido;
+	private Double descontoINSS;
+	private Double descontoIR;
+	private Double salarioLiquido;
 
-	public int getCodigo() {
+	
+
+	public FolhaPagamento(Integer codigo, Integer id_funcionario, LocalDate dataPagamento, Double descontoINSS,
+			Double descontoIR, Double salarioLiquido) {
+		super();
+		this.codigo = codigo;
+		this.idFuncionario = id_funcionario;
+		this.dataPagamento = dataPagamento;
+		this.descontoINSS = descontoINSS;
+		this.descontoIR = descontoIR;
+		this.salarioLiquido = salarioLiquido;
+	}
+	
+	public FolhaPagamento(Integer id_funcionario, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
+			Double salarioLiquido) {
+		super();
+		this.idFuncionario = id_funcionario;
+		this.dataPagamento = dataPagamento;
+		this.descontoINSS = descontoINSS;
+		this.descontoIR = descontoIR;
+		this.salarioLiquido = salarioLiquido;
+	}
+
+	public Integer getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(int codigo) {
+	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
 
-	public Funcionario getFuncionario() {
-		return funcionario;
+	public Integer getIdFuncionario() {
+		return idFuncionario;
 	}
 
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
+	public void setiDFuncionario(Integer idFuncionario) {
+		this.idFuncionario = idFuncionario;
 	}
 
 	public LocalDate getDataPagamento() {
@@ -34,27 +57,27 @@ public class FolhaPagamento {
 		this.dataPagamento = dataPagamento;
 	}
 
-	public double getDescontoINSS() {
+	public Double getDescontoINSS() {
 		return descontoINSS;
 	}
 
-	public void setDescontoINSS(double descontoINSS) {
+	public void setDescontoINSS(Double descontoINSS) {
 		this.descontoINSS = descontoINSS;
 	}
 
-	public double getDescontoIR() {
+	public Double getDescontoIR() {
 		return descontoIR;
 	}
 
-	public void setDescontoIR(double descontoIR) {
+	public void setDescontoIR(Double descontoIR) {
 		this.descontoIR = descontoIR;
 	}
 
-	public double getSalarioLiquido() {
+	public Double getSalarioLiquido() {
 		return salarioLiquido;
 	}
 
-	public void setSalarioLiquido(double salarioLiquido) {
+	public void setSalarioLiquido(Double salarioLiquido) {
 		this.salarioLiquido = salarioLiquido;
 	}
 

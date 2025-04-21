@@ -10,18 +10,26 @@ public final class Dependente extends Pessoa {
 	public Integer getId_dependente() {
 		return id_dependente;
 	}
-
-	public Dependente(String nome, String cpf, LocalDate dataNascimento, Integer id_dependente, Parentesco parentesco,
-			Integer id_funcionario) {
+	
+	public Dependente(int id_dependente, String nome, String cpf, LocalDate dataNascimento, Parentesco parentesco,
+			int id_funcionario) {
 		super(nome, cpf, dataNascimento);
 		this.id_dependente = id_dependente;
+		this.parentesco = parentesco;
+		this.id_funcionario = id_funcionario;
+	}
+	
+
+	public Dependente(String nome, String cpf, LocalDate dataNascimento, Parentesco parentesco,
+			Integer id_funcionario) {
+		super(nome, cpf, dataNascimento);
 		this.parentesco = parentesco;
 		this.id_funcionario = id_funcionario;
 	}
 
 	@Override
 	public String toString() {
-		return "ID:" + id_dependente + ", Parentesco:" + parentesco + ", ID do titular:"
+		return "ID:" + id_dependente +" "+ super.toString()+ ", Parentesco:" + parentesco + ", ID do titular:"
 				+ id_funcionario;
 	}
 

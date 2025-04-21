@@ -2,6 +2,7 @@ package org.serratec.dao;
 
 import java.sql.SQLException;
 
+import org.serratec.entidade.Dependente;
 import org.serratec.entidade.Funcionario;
 
 public interface CrudDAO<T> {
