@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.serratec.entidade.Funcionario;
-import org.serratec.entidade.Parentesco;
+import org.serratec.enums.Parentesco;
 import org.serratec.dbconnection.ConnectionFac;
 
 import org.serratec.entidade.Dependente;
