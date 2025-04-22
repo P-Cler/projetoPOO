@@ -1,11 +1,13 @@
 package org.serratec.entidade;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public final class Funcionario extends Pessoa {
 	private Integer id_funcionario;
 	private Double salario_bruto;
+	private List<Dependente> dependentes = new ArrayList<>();
 
 	public Funcionario(String nome, String cpf, LocalDate dataNascimento, Double salario_bruto) {
 		super(nome, cpf, dataNascimento);
@@ -40,5 +42,21 @@ public final class Funcionario extends Pessoa {
 		
 		this.salario_bruto = salario_bruto;
 	}
+	
+	
+	public List<Dependente> getDependentes() {
+		return dependentes;
+	}
 
+	public void adicionarDependente(Dependente dependente) {
+		this.dependentes.add(dependente);
+	}
+	
+	
+	public void listarDependentes() {
+		for (Dependente dependente : dependentes) {
+			System.out.println(dependente);
+		}
+	}
+	
 }
