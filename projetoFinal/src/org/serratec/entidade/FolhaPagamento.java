@@ -54,15 +54,15 @@ public class FolhaPagamento implements Constantes {
 			if (funcionario.getSalario_bruto() >= faixa.getSALARIOMINIMO()
 					&& funcionario.getSalario_bruto() <= faixa.getSALARIOMAXIMO()) {
 				this.descontoIR = ((funcionario.getSalario_bruto()
-						- (funcionario.getDependentes().size() * ABATIMENTOIR) - descontoINSS) * faixa.getALIQUOTA())
-						- faixa.getDEDUCAO();
+						- (funcionario.getDependentes().size() * ABATIMENTOIR) - descontoInss(funcionario))
+						* faixa.getALIQUOTA()) - faixa.getDEDUCAO();
 			}
 		}
 		return descontoIR;
 	}
 
 	public Double salarioLiq(Funcionario funcionario) {
-		this.salarioLiquido = funcionario.getSalario_bruto() - descontoINSS - descontoIR;
+		this.salarioLiquido = funcionario.getSalario_bruto() - descontoInss(funcionario) - descontoIR(funcionario);
 		return salarioLiquido;
 	}
 
