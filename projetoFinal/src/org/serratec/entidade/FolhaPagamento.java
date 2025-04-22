@@ -1,7 +1,7 @@
 package org.serratec.entidade;
 
 import java.time.LocalDate;
-
+import java.math.RoundingMode;
 import org.serratec.enums.FaixasInss;
 import org.serratec.enums.FaixasIr;
 
@@ -36,7 +36,17 @@ public class FolhaPagamento implements Constantes {
 		this.descontoIR = descontoIR;
 		this.salarioLiquido = salarioLiquido;
 	}
-
+	
+	public FolhaPagamento(Funcionario funcionario, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
+			Double salarioLiquido) {
+		super();
+		this.funcionario = funcionario;
+		this.dataPagamento = dataPagamento;
+		this.descontoINSS = descontoINSS;
+		this.descontoIR = descontoIR;
+		this.salarioLiquido = salarioLiquido;
+	}
+	
 	public Double descontoInss(Funcionario funcionario) {
 		for (FaixasInss faixa : FaixasInss.values()) {
 			if (funcionario.getSalario_bruto() >= faixa.getSALARIOMINIMO()
@@ -46,7 +56,7 @@ public class FolhaPagamento implements Constantes {
 				this.descontoINSS = LIMITECONTRIBUICAO;
 			}
 		}
-		return descontoINSS;
+		return Math.round(descontoINSS*100.0)/100.0;
 	}
 
 	public Double descontoIR(Funcionario funcionario) {
@@ -58,12 +68,12 @@ public class FolhaPagamento implements Constantes {
 						* faixa.getALIQUOTA()) - faixa.getDEDUCAO();
 			}
 		}
-		return descontoIR;
+		return Math.round(descontoIR*100.0)/100.0;
 	}
 
 	public Double salarioLiq(Funcionario funcionario) {
 		this.salarioLiquido = funcionario.getSalario_bruto() - descontoInss(funcionario) - descontoIR(funcionario);
-		return salarioLiquido;
+		return Math.round(salarioLiquido*100.0)/100.0;
 	}
 
 	public Integer getCodigo() {

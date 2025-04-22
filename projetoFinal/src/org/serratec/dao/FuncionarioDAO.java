@@ -117,4 +117,9 @@ public class FuncionarioDAO implements CrudDAO<Funcionario> {
 			System.out.println(funcionario);
 		}
 	}
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
+	
 }

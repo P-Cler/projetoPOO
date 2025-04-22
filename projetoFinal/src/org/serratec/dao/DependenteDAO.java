@@ -15,7 +15,7 @@ import org.serratec.enums.Parentesco;
 public class DependenteDAO implements CrudDAO<Dependente> {
 	Connection connection;
 	List<Dependente> dependentes = new ArrayList<>();
-	final String table = "folha_de_pagamento";
+	final String table = "dependente";
 
 	public DependenteDAO(Connection connection) {
 		this.connection = connection;
