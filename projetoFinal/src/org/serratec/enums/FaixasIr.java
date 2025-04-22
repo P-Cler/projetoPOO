@@ -5,7 +5,7 @@ public enum FaixasIr {
 	FAIXA2(2259.21, 2826.65, 0.075, 169.44),
 	FAIXA3(2826.66, 3751.05, 0.15, 381.44),
 	FAIXA4(3751.06, 4664.68, 0.225, 662.77),
-	FAIXA5(4664.68, Double.MAX_VALUE, 0.275, 869.);
+	FAIXA5(4664.68, Double.MAX_VALUE, 0.275, 896.00);
 
     private final Double SALARIOMINIMO;
     private final Double SALARIOMAXIMO;
