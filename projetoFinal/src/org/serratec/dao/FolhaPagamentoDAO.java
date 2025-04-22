@@ -43,7 +43,7 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 			} else {
 				System.out.println("Não foi possível obter o ID gerado.");
 			}
-			System.out.println("Funcionário cadastrado com sucesso!");
+			System.out.println("Registro cadastrado com sucesso!");
 		} catch (SQLException e) {
 			System.err.println("Não foi possível inserir os dados!");
 			e.getStackTrace();
