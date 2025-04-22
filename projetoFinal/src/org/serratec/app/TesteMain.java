@@ -24,7 +24,7 @@ public class TesteMain {
 			Connection connection = cf.getConnection();
 			FuncionarioDAO funcDAO = new FuncionarioDAO(connection);
 			DependenteDAO dependDAO = new DependenteDAO(connection);
-			FolhaPagamentoDAO fpDAO = new FolhaPagamentoDAO(connection);
+			FolhaPagamentoDAO folhaPagamentoDAO = new FolhaPagamentoDAO(connection);
 			
 			List<FolhaPagamento> folhaPagamentos = new ArrayList<>();
 			List<Funcionario> funcionarios = new ArrayList<>();
@@ -38,19 +38,12 @@ public class TesteMain {
 				}
 			}
 			
-			for (Funcionario funcionario : funcionarios) {
-				System.out.println(funcionario);
-			}
-			
 			SaidaFolhaDePagamento.saidaArquivo(funcionarios);
 			folhaPagamentos = SaidaFolhaDePagamento.getFolhaPagamentos();
 			
-			for (FolhaPagamento fp : folhaPagamentos) {
-				System.out.println(fp);
-			}
 			
-			for (FolhaPagamento folhaP : folhaPagamentos) {
-				fpDAO.inserir(folhaP);
+			for (FolhaPagamento folhaPag : folhaPagamentos) {
+				folhaPagamentoDAO.inserir(folhaPag);
 			}
 			
 		} catch (SQLException e) {

@@ -23,6 +23,11 @@ public class LeituraArquivo {
 	    
 
 	    try {
+//	    	System.out.println("Insira o nome e endereço do arquivo .csv: ");
+//	    	Scanner sc = new Scanner(System.in);
+//	    	String diretorio = sc.nextLine();
+//	    	FileReader file = new FileReader(diretorio);
+//	    	sc.close();
 	        FileReader file = new FileReader("D:/Usuários/HugoB/Área de Trabalho/arquivoEntrada/entrada.csv");
 	        Scanner sc2 = new Scanner(file);
 
@@ -107,34 +112,5 @@ public class LeituraArquivo {
 	    }
 	}
 	
-	
-//	public static List<Funcionario> lerArquivoEntrada() {
-//		List<Funcionario> funcionarios = new ArrayList<>();
-//		try {
-//			Scanner sc = new Scanner(System.in);
-//			System.out.println("Digite o nome do arquivo:");
-//
-//			//String nomeArquivo = sc.next();
-//			FileReader file = new FileReader("C:/Users/ayahk/Desktop/arquivoEntrada/entrada.csv");
-//
-//			Scanner sc2 = new Scanner(file);
-//			
-//			while (sc2.hasNext()) {
-//				String linha = sc2.nextLine();
-//				if (!linha.isEmpty()) {
-//					String[] dados = linha.split(";");
-//					funcionarios.add(new Funcionario(dados[0], dados[1], LocalDate.parse(dados[2], DateTimeFormatter.ofPattern("yyyyMMdd")),
-//							Double.parseDouble(dados[3])));
-//				}
-//			}
-//			sc2.close();
-//			sc.close();
-//			System.out.println("********Dados importados do Arquivo********");
-//			funcionarios.forEach(funcionario -> System.out.println(funcionario));						
-//		} catch (Exception e) {
-//			System.err.println("Arquivo não encontrado!");
-//		}
-//		return funcionarios;
-//
-//	}
+
 }
