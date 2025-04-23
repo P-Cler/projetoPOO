@@ -17,14 +17,14 @@ public class SaidaFolhaDePagamento {
 	static List<FolhaPagamento> folhaPagamentos = new ArrayList<>();
 	public static List<Pessoa> rejeitados = new ArrayList<>();
 
-	public static void saidaFolhaPagamento(List<Funcionario> func) {
+	public static void saidaFolhaPagamento(List<Funcionario> func, String nomeArquivo) {
 		BufferedWriter lancamento = null;
 
 		try {
 			FolhaPagamento folhaPagamento = new FolhaPagamento();
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Insira o nome do arquivo desejado para o arquivo de Folha de Pagamento .csv:");
-			String nomeArquivo = sc.nextLine();
+//			Scanner sc = new Scanner(System.in);
+//			System.out.println("Insira o nome do arquivo desejado para o arquivo de Folha de Pagamento .csv:");
+//			String nomeArquivo = sc.nextLine();
 
 			lancamento = new BufferedWriter(
 					new FileWriter(System.getProperty("user.home") + "/Desktop/" + nomeArquivo + ".csv"));
@@ -48,12 +48,12 @@ public class SaidaFolhaDePagamento {
 		}
 	}
 
-	public static void saidaRejeitados() {
+	public static void saidaRejeitados(String nomeArquivo) {
 		BufferedWriter lancamento = null;
 		try {
-			Scanner sc = new Scanner(System.in);
-			System.out.println("Insira o nome do arquivo desejado para o arquivo de Rejeitados .csv:\n");
-			String nomeArquivo = sc.nextLine();
+//			Scanner sc = new Scanner(System.in);
+//			System.out.println("Insira o nome do arquivo desejado para o arquivo de Rejeitados .csv:\n");
+//			String nomeArquivo = sc.nextLine();
 
 			lancamento = new BufferedWriter(
 					new FileWriter(System.getProperty("user.home") + "/Desktop/" + nomeArquivo + ".csv"));

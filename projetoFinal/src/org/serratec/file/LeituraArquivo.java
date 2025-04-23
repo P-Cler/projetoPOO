@@ -13,13 +13,13 @@ import org.serratec.enums.Parentesco;
 import org.serratec.entidade.Dependente;
 
 public class LeituraArquivo {
-	public static List<Funcionario> lerArquivoEntrada() {
+	public static List<Funcionario> lerArquivoEntrada(String diretorio) {
 		List<Funcionario> funcionarios = new ArrayList<>();
 
 		try {
-			System.out.println("Insira o nome e endereço do arquivo .csv: ");
-			Scanner sc = new Scanner(System.in);
-			String diretorio = sc.nextLine();
+//			System.out.println("Insira o nome e endereço do arquivo .csv: ");
+//			Scanner sc = new Scanner(System.in);
+//			String diretorio = sc.nextLine();
 			FileReader file = new FileReader(diretorio);
 			Scanner sc2 = new Scanner(file);
 

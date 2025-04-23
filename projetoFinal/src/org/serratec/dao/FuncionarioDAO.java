@@ -47,16 +47,12 @@ public class FuncionarioDAO implements CrudDAO<Funcionario> {
 				int idGerado = rs.getInt(1);
 				funcionario.setId_funcionario(idGerado);
 				this.funcionarios.add(funcionario);
-				System.out.println("Funcionário inserido com ID: " + idGerado);
-			} else {
-				System.out.println("Não foi possível obter o ID gerado.");
 			}
 
 		} catch (FuncionarioException e) {
 			System.err.println(e.getMessage());
 		} catch (SQLException e) {
 			System.err.println("Erro ao inserir funcionário no banco de dados.");
-			e.printStackTrace();
 		}
 	}
 
