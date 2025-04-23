@@ -11,10 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.serratec.entidade.Dependente;
-import org.serratec.entidade.Funcionario;
 import org.serratec.enums.Parentesco;
 import org.serratec.exception.DependenteException;
-import org.serratec.exception.FuncionarioException;
 import org.serratec.file.SaidaFolhaDePagamento;
 
 public class DependenteDAO implements CrudDAO<Dependente> {
@@ -29,45 +27,45 @@ public class DependenteDAO implements CrudDAO<Dependente> {
 
 	@Override
 	public void inserir(Dependente dependente) throws SQLException {
-	    String sql = "INSERT INTO " + this.table
-	            + " (nome, cpf, data_nascimento, parentesco, id_funcionario) VALUES (?,?,?,?,?)";
-	    try {
-	        for (Dependente d : dependentes) {
-	            if (d.getCpf().equals(dependente.getCpf())) {
-	                SaidaFolhaDePagamento.rejeitados.add(dependente);  // CUIDADO: tipo da lista!
-	                throw new DependenteException("Dependente não inserido. CPF já existente!");
-	            }
-	        }
+		String sql = "INSERT INTO " + this.table
+				+ " (nome, cpf, data_nascimento, parentesco, id_funcionario) VALUES (?,?,?,?,?)";
+		try {
+			for (Dependente d : dependentes) {
+				if (d.getCpf().equals(dependente.getCpf())) {
+					SaidaFolhaDePagamento.rejeitados.add(dependente); // CUIDADO: tipo da lista!
+					throw new DependenteException("Dependente não inserido. CPF já existente!");
+				}
+			}
 
-	        if (dependente.getDataNascimento().plusYears(18).isBefore(LocalDate.now())) {
-	            SaidaFolhaDePagamento.rejeitados.add(dependente);
-	            throw new DependenteException("Dependente não inserido, maior de 18 anos.");
-	        }
+			if (dependente.getDataNascimento().plusYears(18).isBefore(LocalDate.now())) {
+				SaidaFolhaDePagamento.rejeitados.add(dependente);
+				throw new DependenteException("Dependente não inserido, maior de 18 anos.");
+			}
 
-	        PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	        stmt.setString(1, dependente.getNome());
-	        stmt.setString(2, dependente.getCpf());
-	        stmt.setDate(3, Date.valueOf(dependente.getDataNascimento()));
-	        stmt.setString(4, dependente.getParentesco().toString());
-	        stmt.setInt(5, dependente.getId_funcionario());
-	        stmt.execute();
+			PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, dependente.getNome());
+			stmt.setString(2, dependente.getCpf());
+			stmt.setDate(3, Date.valueOf(dependente.getDataNascimento()));
+			stmt.setString(4, dependente.getParentesco().toString());
+			stmt.setInt(5, dependente.getId_funcionario());
+			stmt.execute();
 
-	        ResultSet rs = stmt.getGeneratedKeys();
-	        if (rs.next()) {
-	            int idGerado = rs.getInt(1);
-	            dependente.setId_dependente(idGerado);  // <- CORRETO AQUI
-	            this.dependentes.add(dependente);
-	            System.out.println("Dependente inserido com ID: " + idGerado);
-	        } else {
-	            System.out.println("Não foi possível obter o ID gerado.");
-	        }
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				int idGerado = rs.getInt(1);
+				dependente.setId_dependente(idGerado); // <- CORRETO AQUI
+				this.dependentes.add(dependente);
+				System.out.println("Dependente inserido com ID: " + idGerado);
+			} else {
+				System.out.println("Não foi possível obter o ID gerado.");
+			}
 
-	    } catch (SQLException e) {
-	        System.err.println("Erro ao inserir dependente no banco.");
-	        e.printStackTrace();
-	    } catch (DependenteException e) {
-	        System.err.println(e.getMessage());
-	    }
+		} catch (SQLException e) {
+			System.err.println("Erro ao inserir dependente no banco.");
+			e.printStackTrace();
+		} catch (DependenteException e) {
+			System.err.println(e.getMessage());
+		}
 	}
 
 	@Override

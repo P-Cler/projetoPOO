@@ -42,6 +42,5 @@ public abstract class Pessoa {
 	public void setDataNascimento(LocalDate dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
-	
-	public abstract String getDadosParaArquivo();
+
 }

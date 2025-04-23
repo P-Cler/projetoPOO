@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.serratec.entidade.FolhaPagamento;
-import org.serratec.entidade.Funcionario;
 
 public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 	Connection connection;
@@ -98,8 +97,6 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 			System.err.println("Erro ao carregar lista de pagamentos: " + e.getMessage());
 		}
 	}
-
-	
 
 	@Override
 	public FolhaPagamento getById(Integer id) throws SQLException {

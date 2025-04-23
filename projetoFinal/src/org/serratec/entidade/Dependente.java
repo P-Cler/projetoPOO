@@ -8,10 +8,6 @@ public final class Dependente extends Pessoa {
 	private Parentesco parentesco;
 	private Integer id_funcionario;
 
-	public Integer getId_dependente() {
-		return id_dependente;
-	}
-	
 	public Dependente(int id_dependente, String nome, String cpf, LocalDate dataNascimento, Parentesco parentesco,
 			int id_funcionario) {
 		super(nome, cpf, dataNascimento);
@@ -19,7 +15,6 @@ public final class Dependente extends Pessoa {
 		this.parentesco = parentesco;
 		this.id_funcionario = id_funcionario;
 	}
-	
 
 	public Dependente(String nome, String cpf, LocalDate dataNascimento, Parentesco parentesco,
 			Integer id_funcionario) {
@@ -27,7 +22,6 @@ public final class Dependente extends Pessoa {
 		this.parentesco = parentesco;
 		this.id_funcionario = id_funcionario;
 	}
-	
 
 	public Dependente(String nome, String cpf, LocalDate dataNascimento, Parentesco parentesco) {
 		super(nome, cpf, dataNascimento);
@@ -36,8 +30,12 @@ public final class Dependente extends Pessoa {
 
 	@Override
 	public String toString() {
-		return "ID:" + id_dependente +" "+ super.toString()+ ", Parentesco:" + parentesco + ", ID do titular:"
+		return "ID:" + id_dependente + " " + super.toString() + ", Parentesco:" + parentesco + ", ID do titular:"
 				+ id_funcionario;
+	}
+
+	public Integer getId_dependente() {
+		return id_dependente;
 	}
 
 	public void setId_dependente(Integer id_dependente) {
@@ -59,10 +57,4 @@ public final class Dependente extends Pessoa {
 	public void setId_funcionario(Integer id_funcionario) {
 		this.id_funcionario = id_funcionario;
 	}
-
-	@Override
-	public String getDadosParaArquivo() {
-		return getNome() + ";" + getCpf() + ";" + getDataNascimento() + ";" + getParentesco();
-	}
-
 }

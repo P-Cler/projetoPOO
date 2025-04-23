@@ -15,23 +15,21 @@ import org.serratec.entidade.Funcionario;
 import org.serratec.file.LeituraArquivo;
 import org.serratec.file.SaidaFolhaDePagamento;
 
-public class TesteMain {
+public class ProjetoAPP {
 
 	public static void main(String[] args) {
-		
+
 		try {
 			ConnectionFac cf = new ConnectionFac();
 			Connection connection = cf.getConnection();
 			FuncionarioDAO funcDAO = new FuncionarioDAO(connection);
 			DependenteDAO dependDAO = new DependenteDAO(connection);
 			FolhaPagamentoDAO folhaPagamentoDAO = new FolhaPagamentoDAO(connection);
-			
-			
+
 			List<FolhaPagamento> folhaPagamentos = new ArrayList<>();
 			List<Funcionario> funcionarios = new ArrayList<>();
 			funcionarios = LeituraArquivo.lerArquivoEntrada();
-			
-			
+
 			for (Funcionario funcionario : funcionarios) {
 				funcDAO.inserir(funcionario);
 				for (Dependente dependente : funcionario.getDependentes()) {
@@ -40,23 +38,17 @@ public class TesteMain {
 				}
 			}
 			funcionarios = funcDAO.getFuncionarios();
-			for (Funcionario funcionario : funcionarios) {
-				System.out.println(funcionario);
-			}
+
 			SaidaFolhaDePagamento.saidaRejeitados();
 			SaidaFolhaDePagamento.saidaFolhaPagamento(funcionarios);
 			folhaPagamentos = SaidaFolhaDePagamento.getFolhaPagamentos();
-			
-			for (FolhaPagamento folhaPagamento : folhaPagamentos) {
-			System.out.println(folhaPagamento);
-		}
 
 			for (FolhaPagamento folhaPag : folhaPagamentos) {
 				folhaPagamentoDAO.inserir(folhaPag);
 			}
-			
+
 		} catch (SQLException e) {
-			System.out.println("Erro ao acessar o banco de dados: ");
+			System.err.println("Erro ao interagir com o banco de dados. ");
 			e.printStackTrace();
 		}
 
