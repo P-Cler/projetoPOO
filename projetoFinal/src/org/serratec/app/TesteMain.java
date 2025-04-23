@@ -38,7 +38,7 @@ public class TesteMain {
 				}
 			}
 			
-			SaidaFolhaDePagamento.saidaArquivo(funcionarios);
+			SaidaFolhaDePagamento.saidaFolhaPagamento(funcionarios);
 			folhaPagamentos = SaidaFolhaDePagamento.getFolhaPagamentos();
 			
 			
@@ -47,7 +47,7 @@ public class TesteMain {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("Erro!");
+			System.out.println("Erro ao acessar o banco de dados: ");
 			e.printStackTrace();
 		}
 
