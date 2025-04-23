@@ -58,5 +58,10 @@ public final class Funcionario extends Pessoa {
 			System.out.println(dependente);
 		}
 	}
+
+	@Override
+	public String getDadosParaArquivo() {
+		return   getNome() + ";" + getCpf() + ";" + getDataNascimento() + ";" + getSalario_bruto();
+	}
 	
 }

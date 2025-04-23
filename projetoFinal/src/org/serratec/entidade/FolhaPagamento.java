@@ -16,6 +16,16 @@ public class FolhaPagamento implements Constantes {
 	public FolhaPagamento() {
 	}
 
+	public FolhaPagamento(Integer codigo, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
+			Double salarioLiquido) {
+		super();
+		this.codigo = codigo;
+		this.dataPagamento = dataPagamento;
+		this.descontoINSS = descontoINSS;
+		this.descontoIR = descontoIR;
+		this.salarioLiquido = salarioLiquido;
+	}
+
 	public FolhaPagamento(Integer codigo, Integer id_funcionario, LocalDate dataPagamento, Double descontoINSS,
 			Double descontoIR, Double salarioLiquido) {
 		super();
@@ -27,15 +37,15 @@ public class FolhaPagamento implements Constantes {
 		this.salarioLiquido = salarioLiquido;
 	}
 
-	public FolhaPagamento(Integer id_funcionario, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
-			Double salarioLiquido) {
-		super();
-		this.funcionario.setId_funcionario(id_funcionario);
-		this.dataPagamento = dataPagamento;
-		this.descontoINSS = descontoINSS;
-		this.descontoIR = descontoIR;
-		this.salarioLiquido = salarioLiquido;
-	}
+//	public FolhaPagamento(Integer id_funcionario, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
+//			Double salarioLiquido) {
+//		super();
+//		this.funcionario.setId_funcionario(id_funcionario);
+//		this.dataPagamento = dataPagamento;
+//		this.descontoINSS = descontoINSS;
+//		this.descontoIR = descontoIR;
+//		this.salarioLiquido = salarioLiquido;
+//	}
 
 	public FolhaPagamento(Funcionario funcionario, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
 			Double salarioLiquido) {
@@ -108,6 +118,10 @@ public class FolhaPagamento implements Constantes {
 		this.descontoINSS = descontoINSS;
 	}
 
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
 	public Double getDescontoIR() {
 		return descontoIR;
 	}
@@ -122,6 +136,13 @@ public class FolhaPagamento implements Constantes {
 
 	public void setSalarioLiquido(Double salarioLiquido) {
 		this.salarioLiquido = salarioLiquido;
+	}
+
+	@Override
+	public String toString() {
+		return "FolhaPagamento [codigo=" + codigo + ", funcionario=" + funcionario + ", dataPagamento=" + dataPagamento
+				+ ", descontoINSS=" + descontoINSS + ", descontoIR=" + descontoIR + ", salarioLiquido=" + salarioLiquido
+				+ "]";
 	}
 
 }

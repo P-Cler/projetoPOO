@@ -11,15 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.serratec.entidade.FolhaPagamento;
+import org.serratec.entidade.Funcionario;
 
 public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 	Connection connection;
 	List<FolhaPagamento> folhaPagamentos = new ArrayList<>();
+
 	final String table = "folha_de_pagamento";
 
 	public FolhaPagamentoDAO(Connection connection) {
 		this.connection = connection;
-		getAll();
+
 	}
 
 	@Override
@@ -45,7 +47,7 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 			}
 			System.out.println("Registro cadastrado com sucesso!");
 		} catch (SQLException e) {
-			System.err.println("Não foi possível inserir os dados!");
+			System.err.println("Não foi possível inserir os dados na folhda de pagamento!");
 			e.getStackTrace();
 		}
 	}
@@ -96,6 +98,8 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 			System.err.println("Erro ao carregar lista de pagamentos: " + e.getMessage());
 		}
 	}
+
+	
 
 	@Override
 	public FolhaPagamento getById(Integer id) throws SQLException {

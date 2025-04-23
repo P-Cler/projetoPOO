@@ -7,9 +7,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.serratec.entidade.Dependente;
 import org.serratec.entidade.FolhaPagamento;
 import org.serratec.entidade.Funcionario;
 import org.serratec.entidade.Pessoa;
+import org.serratec.enums.Parentesco;
 
 public class SaidaFolhaDePagamento {
 	static List<FolhaPagamento> folhaPagamentos = new ArrayList<>();
@@ -43,23 +45,30 @@ public class SaidaFolhaDePagamento {
 		}
 	}
 	
-// ######################### NÃO TERMINADO
-	public static void saidaRejeitados(List<Pessoa> pessoas) {
+	
+	public static void saidaRejeitados() {
 		BufferedWriter lancamento = null;
-		
 		try {
 			
 			lancamento = new BufferedWriter(
 					new FileWriter(System.getProperty("user.dir") + "/projetoFinal/src/Rejeitados.csv"));
-			
-			for (Pessoa pessoa : pessoas) {
-				lancamento.append(pessoa.getNome() + ";");
-				lancamento.append(pessoa.getCpf() + ";");
-				lancamento.append(pessoa.getDataNascimento() + ";\n");
-				
-				
-				lancamento.append(pessoa.getDataNascimento() + ";");
-			}
+			 for (Pessoa pessoa : rejeitados) {
+		            if (pessoa instanceof Funcionario funcionario) {
+		                lancamento.write("Funcionario;");
+		                lancamento.write(funcionario.getNome() + ";");
+		                lancamento.write(funcionario.getCpf() + ";");
+		                lancamento.write(funcionario.getDataNascimento() + ";");
+		                lancamento.write(String.valueOf(funcionario.getSalario_bruto()) + "\n");
+
+		            } else if (pessoa instanceof Dependente dependente) {
+		                lancamento.write("Dependente;");
+		                lancamento.write(dependente.getNome() + ";");
+		                lancamento.write(dependente.getCpf() + ";");
+		                lancamento.write(dependente.getDataNascimento() + ";");
+		                lancamento.write(dependente.getParentesco().name() + "\n");
+		            }
+		            lancamento.write("\n");
+		        }
 			lancamento.close();
 		} catch (IOException e) {
 			System.out.println("Erro ao gravar arquivo!");

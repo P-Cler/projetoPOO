@@ -26,9 +26,11 @@ public class TesteMain {
 			DependenteDAO dependDAO = new DependenteDAO(connection);
 			FolhaPagamentoDAO folhaPagamentoDAO = new FolhaPagamentoDAO(connection);
 			
+			
 			List<FolhaPagamento> folhaPagamentos = new ArrayList<>();
 			List<Funcionario> funcionarios = new ArrayList<>();
 			funcionarios = LeituraArquivo.lerArquivoEntrada();
+			
 			
 			for (Funcionario funcionario : funcionarios) {
 				funcDAO.inserir(funcionario);
@@ -37,11 +39,18 @@ public class TesteMain {
 					dependDAO.inserir(dependente);
 				}
 			}
-			
+			funcionarios = funcDAO.getFuncionarios();
+			for (Funcionario funcionario : funcionarios) {
+				System.out.println(funcionario);
+			}
+			SaidaFolhaDePagamento.saidaRejeitados();
 			SaidaFolhaDePagamento.saidaFolhaPagamento(funcionarios);
 			folhaPagamentos = SaidaFolhaDePagamento.getFolhaPagamentos();
 			
-			
+			for (FolhaPagamento folhaPagamento : folhaPagamentos) {
+			System.out.println(folhaPagamento);
+		}
+
 			for (FolhaPagamento folhaPag : folhaPagamentos) {
 				folhaPagamentoDAO.inserir(folhaPag);
 			}
