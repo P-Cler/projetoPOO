@@ -1,7 +1,6 @@
 package org.serratec.entidade;
 
 import java.time.LocalDate;
-import java.math.RoundingMode;
 import org.serratec.enums.FaixasInss;
 import org.serratec.enums.FaixasIr;
 
@@ -37,16 +36,6 @@ public class FolhaPagamento implements Constantes {
 		this.salarioLiquido = salarioLiquido;
 	}
 
-//	public FolhaPagamento(Integer id_funcionario, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
-//			Double salarioLiquido) {
-//		super();
-//		this.funcionario.setId_funcionario(id_funcionario);
-//		this.dataPagamento = dataPagamento;
-//		this.descontoINSS = descontoINSS;
-//		this.descontoIR = descontoIR;
-//		this.salarioLiquido = salarioLiquido;
-//	}
-
 	public FolhaPagamento(Funcionario funcionario, LocalDate dataPagamento, Double descontoINSS, Double descontoIR,
 			Double salarioLiquido) {
 		super();
@@ -57,33 +46,11 @@ public class FolhaPagamento implements Constantes {
 		this.salarioLiquido = salarioLiquido;
 	}
 
-	public Double descontoInss(Funcionario funcionario) {
-		for (FaixasInss faixa : FaixasInss.values()) {
-			if (funcionario.getSalario_bruto() >= faixa.getSALARIOMINIMO()
-					&& funcionario.getSalario_bruto() <= faixa.getSALARIOMAXIMO()) {
-				this.descontoINSS = (funcionario.getSalario_bruto() * faixa.getALIQUOTA()) - faixa.getDEDUCAO();
-			} else if (funcionario.getSalario_bruto() > FaixasInss.FAIXA4.getSALARIOMAXIMO()) {
-				this.descontoINSS = LIMITECONTRIBUICAO;
-			}
-		}
-		return Math.round(descontoINSS * 100.0) / 100.0;
-	}
-
-	public Double descontoIR(Funcionario funcionario) {
-		for (FaixasIr faixa : FaixasIr.values()) {
-			if (funcionario.getSalario_bruto() >= faixa.getSALARIOMINIMO()
-					&& funcionario.getSalario_bruto() <= faixa.getSALARIOMAXIMO()) {
-				this.descontoIR = ((funcionario.getSalario_bruto()
-						- (funcionario.getDependentes().size() * ABATIMENTOIR) - descontoInss(funcionario))
-						* faixa.getALIQUOTA()) - faixa.getDEDUCAO();
-			}
-		}
-		return Math.round(descontoIR * 100.0) / 100.0;
-	}
-
-	public Double salarioLiq(Funcionario funcionario) {
-		this.salarioLiquido = funcionario.getSalario_bruto() - descontoInss(funcionario) - descontoIR(funcionario);
-		return Math.round(salarioLiquido * 100.0) / 100.0;
+	@Override
+	public String toString() {
+		return "FolhaPagamento [codigo=" + codigo + ", funcionario=" + funcionario + ", dataPagamento=" + dataPagamento
+				+ ", descontoINSS=" + descontoINSS + ", descontoIR=" + descontoIR + ", salarioLiquido=" + salarioLiquido
+				+ "]";
 	}
 
 	public Integer getCodigo() {
@@ -138,11 +105,33 @@ public class FolhaPagamento implements Constantes {
 		this.salarioLiquido = salarioLiquido;
 	}
 
-	@Override
-	public String toString() {
-		return "FolhaPagamento [codigo=" + codigo + ", funcionario=" + funcionario + ", dataPagamento=" + dataPagamento
-				+ ", descontoINSS=" + descontoINSS + ", descontoIR=" + descontoIR + ", salarioLiquido=" + salarioLiquido
-				+ "]";
+	public Double descontoInss(Funcionario funcionario) {
+		for (FaixasInss faixa : FaixasInss.values()) {
+			if (funcionario.getSalario_bruto() >= faixa.getSALARIOMINIMO()
+					&& funcionario.getSalario_bruto() <= faixa.getSALARIOMAXIMO()) {
+				this.descontoINSS = (funcionario.getSalario_bruto() * faixa.getALIQUOTA()) - faixa.getDEDUCAO();
+			} else if (funcionario.getSalario_bruto() > FaixasInss.FAIXA4.getSALARIOMAXIMO()) {
+				this.descontoINSS = LIMITECONTRIBUICAO;
+			}
+		}
+		return Math.round(descontoINSS * 100.0) / 100.0;
+	}
+
+	public Double descontoIR(Funcionario funcionario) {
+		for (FaixasIr faixa : FaixasIr.values()) {
+			if (funcionario.getSalario_bruto() >= faixa.getSALARIOMINIMO()
+					&& funcionario.getSalario_bruto() <= faixa.getSALARIOMAXIMO()) {
+				this.descontoIR = ((funcionario.getSalario_bruto()
+						- (funcionario.getDependentes().size() * ABATIMENTOIR) - descontoInss(funcionario))
+						* faixa.getALIQUOTA()) - faixa.getDEDUCAO();
+			}
+		}
+		return Math.round(descontoIR * 100.0) / 100.0;
+	}
+
+	public Double salarioLiq(Funcionario funcionario) {
+		this.salarioLiquido = funcionario.getSalario_bruto() - descontoInss(funcionario) - descontoIR(funcionario);
+		return Math.round(salarioLiquido * 100.0) / 100.0;
 	}
 
 }

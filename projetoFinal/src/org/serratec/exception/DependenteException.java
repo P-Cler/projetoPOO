@@ -2,15 +2,15 @@ package org.serratec.exception;
 
 public class DependenteException extends Exception {
 
-	
+	private static final long serialVersionUID = 1L;
+
 	public DependenteException() {
 		super();
 	}
 
 	public DependenteException(String mensagem) {
 		super(mensagem);
-		
+
 	}
-	
-	
+
 }

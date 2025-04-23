@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.serratec.entidade.Funcionario;
-import org.serratec.exception.DependenteException;
 import org.serratec.exception.FuncionarioException;
 import org.serratec.file.SaidaFolhaDePagamento;
 
@@ -21,49 +20,45 @@ public class FuncionarioDAO implements CrudDAO<Funcionario> {
 
 	public FuncionarioDAO(Connection connection) {
 		this.connection = connection;
-		 
+
 	}
 
 	@Override
 	public void inserir(Funcionario funcionario) throws SQLException {
-	    String sql = "INSERT INTO " + this.table + " (nome, cpf, data_nascimento, salario_bruto) VALUES (?,?,?,?)";
+		String sql = "INSERT INTO " + this.table + " (nome, cpf, data_nascimento, salario_bruto) VALUES (?,?,?,?)";
 
-	    try {
-	        // Verifica se já existe funcionário com esse CPF na lista de inseridos
-	        for (Funcionario f : funcionarios) {
-	            if (f.getCpf().equals(funcionario.getCpf())) {
-	                SaidaFolhaDePagamento.rejeitados.add(funcionario); // adiciona aos rejeitados
-	                throw new FuncionarioException("Funcionário não inserido. CPF já existente!");
-	            }
-	        }
+		try {
+			for (Funcionario f : funcionarios) {
+				if (f.getCpf().equals(funcionario.getCpf())) {
+					SaidaFolhaDePagamento.rejeitados.add(funcionario);
+					throw new FuncionarioException("Funcionário não inserido. CPF já existente!");
+				}
+			}
 
-	        // CPF não existe, continua com a inserção
-	        PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-	        stmt.setString(1, funcionario.getNome());
-	        stmt.setString(2, funcionario.getCpf());
-	        stmt.setDate(3, Date.valueOf(funcionario.getDataNascimento()));
-	        stmt.setDouble(4, funcionario.getSalario_bruto());
-	        stmt.execute();
+			PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, funcionario.getNome());
+			stmt.setString(2, funcionario.getCpf());
+			stmt.setDate(3, Date.valueOf(funcionario.getDataNascimento()));
+			stmt.setDouble(4, funcionario.getSalario_bruto());
+			stmt.execute();
 
-	        // Recupera ID gerado
-	        ResultSet rs = stmt.getGeneratedKeys();
-	        if (rs.next()) {
-	            int idGerado = rs.getInt(1);
-	            funcionario.setId_funcionario(idGerado);  // atribui o ID ao objeto
-	            this.funcionarios.add(funcionario);       // adiciona à lista de válidos
-	            System.out.println("Funcionário inserido com ID: " + idGerado);
-	        } else {
-	            System.out.println("Não foi possível obter o ID gerado.");
-	        }
+			ResultSet rs = stmt.getGeneratedKeys();
+			if (rs.next()) {
+				int idGerado = rs.getInt(1);
+				funcionario.setId_funcionario(idGerado);
+				this.funcionarios.add(funcionario);
+				System.out.println("Funcionário inserido com ID: " + idGerado);
+			} else {
+				System.out.println("Não foi possível obter o ID gerado.");
+			}
 
-	    } catch (FuncionarioException e) {
-	        System.err.println(e.getMessage());  // CPF duplicado
-	    } catch (SQLException e) {
-	        System.err.println("Erro ao inserir funcionário no banco de dados.");
-	        e.printStackTrace();
-	    }
+		} catch (FuncionarioException e) {
+			System.err.println(e.getMessage());
+		} catch (SQLException e) {
+			System.err.println("Erro ao inserir funcionário no banco de dados.");
+			e.printStackTrace();
+		}
 	}
-
 
 	@Override
 	public void atualizar(Funcionario funcionario) throws SQLException {
@@ -99,17 +94,16 @@ public class FuncionarioDAO implements CrudDAO<Funcionario> {
 	}
 
 	@Override
-	public void getAll()  {
+	public void getAll() {
 		String sql = "SELECT * FROM funcionario";
-		try (PreparedStatement stmt = connection.prepareStatement(sql); 
-				ResultSet rs = stmt.executeQuery()) {
+		try (PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 			while (rs.next()) {
 				funcionarios.add(new Funcionario(rs.getInt("id_funcionario"), rs.getString("nome"), rs.getString("cpf"),
 						rs.getDate("data_nascimento").toLocalDate(), rs.getDouble("salario_bruto")));
 			}
 		} catch (SQLException e) {
 			System.err.println("Erro ao carregar lista de funcionários: " + e.getMessage());
-			
+
 		}
 	}
 
@@ -131,14 +125,8 @@ public class FuncionarioDAO implements CrudDAO<Funcionario> {
 		return funcionario;
 	}
 
-	public void mostrarFuncionarios() {
-		for (Funcionario funcionario : funcionarios) {
-			System.out.println(funcionario);
-		}
-	}
-
 	public List<Funcionario> getFuncionarios() {
 		return funcionarios;
 	}
-	
+
 }

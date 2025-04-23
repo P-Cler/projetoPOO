@@ -12,7 +12,6 @@ import org.serratec.entidade.Dependente;
 import org.serratec.entidade.FolhaPagamento;
 import org.serratec.entidade.Funcionario;
 import org.serratec.entidade.Pessoa;
-import org.serratec.enums.Parentesco;
 
 public class SaidaFolhaDePagamento {
 	static List<FolhaPagamento> folhaPagamentos = new ArrayList<>();
@@ -75,7 +74,6 @@ public class SaidaFolhaDePagamento {
 				lancamento.write("\n");
 			}
 			lancamento.close();
-//			sc.close();
 		} catch (IOException e) {
 			System.out.println("Erro ao gravar arquivo!");
 			e.printStackTrace();
