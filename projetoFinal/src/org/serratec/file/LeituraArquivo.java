@@ -17,9 +17,6 @@ public class LeituraArquivo {
 		List<Funcionario> funcionarios = new ArrayList<>();
 
 		try {
-//			System.out.println("Insira o nome e endereço do arquivo .csv: ");
-//			Scanner sc = new Scanner(System.in);
-//			String diretorio = sc.nextLine();
 			FileReader file = new FileReader(diretorio);
 			Scanner sc2 = new Scanner(file);
 
