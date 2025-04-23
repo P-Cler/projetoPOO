@@ -27,6 +27,12 @@ public final class Dependente extends Pessoa {
 		this.parentesco = parentesco;
 		this.id_funcionario = id_funcionario;
 	}
+	
+
+	public Dependente(String nome, String cpf, LocalDate dataNascimento, Parentesco parentesco) {
+		super(nome, cpf, dataNascimento);
+		this.parentesco = parentesco;
+	}
 
 	@Override
 	public String toString() {
@@ -52,6 +58,11 @@ public final class Dependente extends Pessoa {
 
 	public void setId_funcionario(Integer id_funcionario) {
 		this.id_funcionario = id_funcionario;
+	}
+
+	@Override
+	public String getDadosParaArquivo() {
+		return getNome() + ";" + getCpf() + ";" + getDataNascimento() + ";" + getParentesco();
 	}
 
 }
