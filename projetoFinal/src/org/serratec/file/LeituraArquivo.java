@@ -21,12 +21,11 @@ public class LeituraArquivo {
 	    List<Funcionario> funcionarios = new ArrayList<>();
 	    
 	    try {
-//	    	System.out.println("Insira o nome e endereço do arquivo .csv: ");
-//	    	Scanner sc = new Scanner(System.in);
-//	    	String diretorio = sc.nextLine();
-//	    	FileReader file = new FileReader(diretorio);
+	    	System.out.println("Insira o nome e endereço do arquivo .csv: ");
+	    	Scanner sc = new Scanner(System.in);
+	    	String diretorio = sc.nextLine();
+	    	FileReader file = new FileReader(diretorio);
 //	    	sc.close();
-	        FileReader file = new FileReader("C:/Users/ayahk/Desktop/arquivoEntrada/entrada.csv");
 	        Scanner sc2 = new Scanner(file);
 
 	        Funcionario funcionarioAtual = null;
