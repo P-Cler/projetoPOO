@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.serratec.dao.DependenteDAO;
 import org.serratec.dao.FolhaPagamentoDAO;
@@ -18,17 +19,25 @@ import org.serratec.file.SaidaFolhaDePagamento;
 public class ProjetoAPP {
 
 	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		ConnectionFac cf = new ConnectionFac();
+		Connection connection = cf.getConnection();
+		FuncionarioDAO funcDAO = new FuncionarioDAO(connection);
+		DependenteDAO dependDAO = new DependenteDAO(connection);
+		FolhaPagamentoDAO folhaPagamentoDAO = new FolhaPagamentoDAO(connection);
 
 		try {
-			ConnectionFac cf = new ConnectionFac();
-			Connection connection = cf.getConnection();
-			FuncionarioDAO funcDAO = new FuncionarioDAO(connection);
-			DependenteDAO dependDAO = new DependenteDAO(connection);
-			FolhaPagamentoDAO folhaPagamentoDAO = new FolhaPagamentoDAO(connection);
+
+			System.out.println("Insira o nome e endereço do arquivo .csv: ");
+			String arquivo1 = sc.nextLine();
+			System.out.println("Insira o nome do arquivo desejado para o arquivo de Folha de Pagamento .csv:");
+			String arquivo2 = sc.nextLine();
+			System.out.println("Insira o nome do arquivo desejado para o arquivo de Rejeitados .csv:");
+			String arquivo3 = sc.nextLine();
 
 			List<FolhaPagamento> folhaPagamentos = new ArrayList<>();
 			List<Funcionario> funcionarios = new ArrayList<>();
-			funcionarios = LeituraArquivo.lerArquivoEntrada();
+			funcionarios = LeituraArquivo.lerArquivoEntrada(arquivo1);
 
 			for (Funcionario funcionario : funcionarios) {
 				funcDAO.inserir(funcionario);
@@ -39,8 +48,8 @@ public class ProjetoAPP {
 			}
 			funcionarios = funcDAO.getFuncionarios();
 
-			SaidaFolhaDePagamento.saidaRejeitados();
-			SaidaFolhaDePagamento.saidaFolhaPagamento(funcionarios);
+			SaidaFolhaDePagamento.saidaRejeitados(arquivo3);
+			SaidaFolhaDePagamento.saidaFolhaPagamento(funcionarios, arquivo2);
 			folhaPagamentos = SaidaFolhaDePagamento.getFolhaPagamentos();
 
 			for (FolhaPagamento folhaPag : folhaPagamentos) {
@@ -50,6 +59,9 @@ public class ProjetoAPP {
 		} catch (SQLException e) {
 			System.err.println("Erro ao interagir com o banco de dados. ");
 			e.printStackTrace();
+		} finally {
+			sc.close();
+			cf.closeConnection();
 		}
 
 	}

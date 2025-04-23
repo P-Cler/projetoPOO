@@ -28,26 +28,18 @@ public class FolhaPagamentoDAO implements CrudDAO<FolhaPagamento> {
 		String sql = "INSERT INTO " + this.table
 				+ " (id_funcionario, data_pagamento, desconto_inss, desconto_ir, salario_liquido) VALUES (?,?,?,?,?)";
 		try {
-			PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setInt(1, folhaPagamento.getIdFuncionario());
 			stmt.setDate(2, Date.valueOf(folhaPagamento.getDataPagamento()));
 			stmt.setDouble(3, folhaPagamento.getDescontoINSS());
 			stmt.setDouble(4, folhaPagamento.getDescontoIR());
 			stmt.setDouble(5, folhaPagamento.getSalarioLiquido());
 			stmt.execute();
-			ResultSet rs = stmt.getGeneratedKeys();
-			if (rs.next()) {
-				int idGerado = rs.getInt(1);
-				folhaPagamento.setCodigo(idGerado);
-				this.folhaPagamentos.add(folhaPagamento);
-				System.out.println("Funcionário inserido com ID: " + idGerado);
-			} else {
-				System.out.println("Não foi possível obter o ID gerado.");
-			}
-			System.out.println("Registro cadastrado com sucesso!");
+
+			this.folhaPagamentos.add(folhaPagamento);
+
 		} catch (SQLException e) {
-			System.err.println("Não foi possível inserir os dados na folhda de pagamento!");
-			e.getStackTrace();
+			System.err.println("Não foi possível inserir os dados na folha de pagamento!");
 		}
 	}
 

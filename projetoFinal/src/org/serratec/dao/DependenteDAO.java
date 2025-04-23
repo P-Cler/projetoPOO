@@ -32,7 +32,7 @@ public class DependenteDAO implements CrudDAO<Dependente> {
 		try {
 			for (Dependente d : dependentes) {
 				if (d.getCpf().equals(dependente.getCpf())) {
-					SaidaFolhaDePagamento.rejeitados.add(dependente); // CUIDADO: tipo da lista!
+					SaidaFolhaDePagamento.rejeitados.add(dependente);
 					throw new DependenteException("Dependente não inserido. CPF já existente!");
 				}
 			}
@@ -42,7 +42,7 @@ public class DependenteDAO implements CrudDAO<Dependente> {
 				throw new DependenteException("Dependente não inserido, maior de 18 anos.");
 			}
 
-			PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dependente.getNome());
 			stmt.setString(2, dependente.getCpf());
 			stmt.setDate(3, Date.valueOf(dependente.getDataNascimento()));
@@ -50,19 +50,10 @@ public class DependenteDAO implements CrudDAO<Dependente> {
 			stmt.setInt(5, dependente.getId_funcionario());
 			stmt.execute();
 
-			ResultSet rs = stmt.getGeneratedKeys();
-			if (rs.next()) {
-				int idGerado = rs.getInt(1);
-				dependente.setId_dependente(idGerado); // <- CORRETO AQUI
-				this.dependentes.add(dependente);
-				System.out.println("Dependente inserido com ID: " + idGerado);
-			} else {
-				System.out.println("Não foi possível obter o ID gerado.");
-			}
+			this.dependentes.add(dependente);
 
 		} catch (SQLException e) {
 			System.err.println("Erro ao inserir dependente no banco.");
-			e.printStackTrace();
 		} catch (DependenteException e) {
 			System.err.println(e.getMessage());
 		}
