@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import org.serratec.entidade.Dependente;
 import org.serratec.entidade.FolhaPagamento;
@@ -22,9 +21,6 @@ public class SaidaFolhaDePagamento {
 
 		try {
 			FolhaPagamento folhaPagamento = new FolhaPagamento();
-//			Scanner sc = new Scanner(System.in);
-//			System.out.println("Insira o nome do arquivo desejado para o arquivo de Folha de Pagamento .csv:");
-//			String nomeArquivo = sc.nextLine();
 
 			lancamento = new BufferedWriter(
 					new FileWriter(System.getProperty("user.home") + "/Desktop/" + nomeArquivo + ".csv"));
@@ -41,7 +37,6 @@ public class SaidaFolhaDePagamento {
 
 			}
 			lancamento.close();
-//			sc.close();
 		} catch (IOException e) {
 			System.out.println("Erro ao gravar arquivo!");
 			e.printStackTrace();
@@ -51,10 +46,6 @@ public class SaidaFolhaDePagamento {
 	public static void saidaRejeitados(String nomeArquivo) {
 		BufferedWriter lancamento = null;
 		try {
-//			Scanner sc = new Scanner(System.in);
-//			System.out.println("Insira o nome do arquivo desejado para o arquivo de Rejeitados .csv:\n");
-//			String nomeArquivo = sc.nextLine();
-
 			lancamento = new BufferedWriter(
 					new FileWriter(System.getProperty("user.home") + "/Desktop/" + nomeArquivo + ".csv"));
 
