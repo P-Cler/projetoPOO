@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.serratec.entidade.Dependente;
 import org.serratec.entidade.Funcionario;
 import org.serratec.exception.FuncionarioException;
 import org.serratec.file.SaidaFolhaDePagamento;
@@ -30,8 +31,16 @@ public class FuncionarioDAO implements CrudDAO<Funcionario> {
 		try {
 			for (Funcionario f : funcionarios) {
 				if (f.getCpf().equals(funcionario.getCpf())) {
-					SaidaFolhaDePagamento.rejeitados.add(funcionario);
-					throw new FuncionarioException("Funcionário não inserido. CPF já existente!");
+					if (funcionario.getDependentes().size() > 0) {
+						for (Dependente dep : funcionario.getDependentes()) {
+							dep.setId_funcionario(f.getId_funcionario());
+						}
+						SaidaFolhaDePagamento.rejeitados.add(funcionario);
+						throw new FuncionarioException("Funcionário não inserido. CPF já existente!");
+					} else {
+						SaidaFolhaDePagamento.rejeitados.add(funcionario);
+						throw new FuncionarioException("Funcionário não inserido. CPF já existente!");
+					}
 				}
 			}
 
