@@ -42,7 +42,9 @@ public class ProjetoAPP {
 			for (Funcionario funcionario : funcionarios) {
 				funcDAO.inserir(funcionario);
 				for (Dependente dependente : funcionario.getDependentes()) {
-					dependente.setId_funcionario(funcionario.getId_funcionario());
+					if (!SaidaFolhaDePagamento.rejeitados.contains(funcionario)) {
+						dependente.setId_funcionario(funcionario.getId_funcionario());	
+					}
 					dependDAO.inserir(dependente);
 				}
 			}
@@ -59,6 +61,7 @@ public class ProjetoAPP {
 		} catch (SQLException e) {
 			System.err.println("Erro ao interagir com o banco de dados. ");
 			e.printStackTrace();
+			
 		} finally {
 			sc.close();
 			cf.closeConnection();
